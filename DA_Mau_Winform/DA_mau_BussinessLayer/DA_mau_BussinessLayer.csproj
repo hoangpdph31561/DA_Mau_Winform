@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DA_Mau_DataLayer\DA_Mau_DataLayer.csproj" />
+    <ProjectReference Include="..\DA_mau_Utilities\DA_mau_Utilities.csproj" />
+  </ItemGroup>
+
 </Project>

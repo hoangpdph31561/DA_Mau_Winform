@@ -42,9 +42,9 @@
             radActive = new RadioButton();
             label6 = new Label();
             txtAddress = new Label();
-            richTextBox1 = new RichTextBox();
+            txtEmployeeAddress = new RichTextBox();
             dtgNhanVien = new DataGridView();
-            textBox3 = new TextBox();
+            txtFind = new TextBox();
             btnFind = new Button();
             btnAdd = new Button();
             btnDelete = new Button();
@@ -195,13 +195,13 @@
             txtAddress.TabIndex = 7;
             txtAddress.Text = "Địa chỉ";
             // 
-            // richTextBox1
+            // txtEmployeeAddress
             // 
-            richTextBox1.Location = new Point(690, 76);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(291, 76);
-            richTextBox1.TabIndex = 8;
-            richTextBox1.Text = "";
+            txtEmployeeAddress.Location = new Point(690, 76);
+            txtEmployeeAddress.Name = "txtEmployeeAddress";
+            txtEmployeeAddress.Size = new Size(291, 76);
+            txtEmployeeAddress.TabIndex = 8;
+            txtEmployeeAddress.Text = "";
             // 
             // dtgNhanVien
             // 
@@ -214,12 +214,12 @@
             dtgNhanVien.Size = new Size(921, 188);
             dtgNhanVien.TabIndex = 9;
             // 
-            // textBox3
+            // txtFind
             // 
-            textBox3.Location = new Point(245, 515);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(318, 27);
-            textBox3.TabIndex = 10;
+            txtFind.Location = new Point(245, 515);
+            txtFind.Name = "txtFind";
+            txtFind.Size = new Size(318, 27);
+            txtFind.TabIndex = 10;
             // 
             // btnFind
             // 
@@ -306,9 +306,9 @@
             Controls.Add(btnDelete);
             Controls.Add(btnAdd);
             Controls.Add(btnFind);
-            Controls.Add(textBox3);
+            Controls.Add(txtFind);
             Controls.Add(dtgNhanVien);
-            Controls.Add(richTextBox1);
+            Controls.Add(txtEmployeeAddress);
             Controls.Add(txtAddress);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -345,9 +345,9 @@
         private RadioButton radInActive;
         private RadioButton radActive;
         private Label label6;
-        private RichTextBox richTextBox1;
+        private RichTextBox txtEmployeeAddress;
         private DataGridView dtgNhanVien;
-        private TextBox textBox3;
+        private TextBox txtFind;
         private Button btnFind;
         private Button btnAdd;
         private Button btnDelete;

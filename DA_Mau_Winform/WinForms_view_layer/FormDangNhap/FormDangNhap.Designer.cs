@@ -105,24 +105,27 @@
             btnForgetPassword.TabIndex = 6;
             btnForgetPassword.Text = "Quên mật khẩu";
             btnForgetPassword.UseVisualStyleBackColor = false;
+            btnForgetPassword.Click += btnForgetPassword_Click;
             // 
             // btnLogin
             // 
             btnLogin.Location = new Point(145, 414);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(259, 29);
+            btnLogin.Size = new Size(259, 47);
             btnLogin.TabIndex = 7;
             btnLogin.Text = "Đăng nhập";
             btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
             // 
             // btnOut
             // 
             btnOut.Location = new Point(145, 477);
             btnOut.Name = "btnOut";
-            btnOut.Size = new Size(259, 29);
+            btnOut.Size = new Size(259, 47);
             btnOut.TabIndex = 8;
             btnOut.Text = "Thoát";
             btnOut.UseVisualStyleBackColor = true;
+            btnOut.Click += btnOut_Click;
             // 
             // FormDangNhap
             // 

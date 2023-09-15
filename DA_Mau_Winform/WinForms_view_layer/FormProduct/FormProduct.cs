@@ -16,5 +16,10 @@ namespace WinForms_view_layer
         {
             InitializeComponent();
         }
+
+        private void FormProduct_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
