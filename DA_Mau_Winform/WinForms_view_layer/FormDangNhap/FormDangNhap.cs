@@ -35,7 +35,7 @@ namespace WinForms_view_layer
             }
             else
             {
-                MessageBox.Show("Đăng nhập thất bại");
+                MessageBox.Show("Đăng nhập thất bại","Thất bại",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
 
