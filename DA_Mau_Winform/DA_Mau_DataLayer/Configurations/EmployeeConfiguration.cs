@@ -14,9 +14,8 @@ namespace DA_Mau_DataLayer.Configurations
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.ToTable("Employees");
+            builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
-            builder.HasKey(x => x.EmployeeId);
-            builder.Property(x => x.EmployeeId).HasDefaultValueSql("'NV' + CONVERT(VARCHAR, Id)");
             builder.Property(x => x.Email).IsUnicode(false).HasMaxLength(50).IsRequired(true);
             builder.HasIndex(x => x.Email).IsUnique(true);
             builder.Property(x => x.Name).IsRequired(true).HasMaxLength(50).IsUnicode(true);

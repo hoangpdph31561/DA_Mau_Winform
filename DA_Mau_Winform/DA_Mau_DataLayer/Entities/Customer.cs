@@ -13,7 +13,7 @@ namespace DA_Mau_DataLayer.Entities
         public string Name { get; set; }
         public string Address { get; set; }
         public Gender Gender { get; set; }
-        public string EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
     }
 }

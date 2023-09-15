@@ -10,8 +10,7 @@ namespace DA_Mau_DataLayer.Entities
 {
     public class Employee
     {
-        public int Id { get; set; }
-        public string EmployeeId  { get; set; }
+        public int Id { get; set; } 
         public string Email { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }

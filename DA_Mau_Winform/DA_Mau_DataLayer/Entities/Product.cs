@@ -15,7 +15,7 @@ namespace DA_Mau_DataLayer.Entities
         public decimal SellPrice { get; set; }
         public string PhotoPath { get; set; }
         public string Note { get; set; }
-        public string EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DA_Mau_DataLayer.Configurations;
+using DA_Mau_DataLayer.DataSeeding;
 using DA_Mau_DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,6 +21,7 @@ namespace DA_Mau_DataLayer.DBContext
             modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.Seed();
         }
     }
 }
