@@ -55,7 +55,7 @@ namespace WinForms_view_layer
                 }
                 else
                 {
-                    MessageBox.Show("Bạn chưa đăng ký nên không tồn tại mail","Lỗi",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show("Email không tồn tại","Lỗi",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
             }
             else
