@@ -11,5 +11,6 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
     {
         Task<LoginResult> Login(LoginRequest request);
         Task <bool> ForgetPassword(ForgetPasswordRequest request);
+        Task <bool> ChangePassword(ChangePasswordRequest request);
     }
 }

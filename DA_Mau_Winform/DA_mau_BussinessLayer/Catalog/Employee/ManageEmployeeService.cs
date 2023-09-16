@@ -60,5 +60,18 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
             await _dbContext.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> ChangePassword(ChangePasswordRequest request)
+        {
+            var employee = await _dbContext.Employees.FirstOrDefaultAsync(x => x.Email == request.Email);
+            if(employee == null || employee.Password != request.OldPassword || request.NewPassword != request.ConfirmPassword)
+            {
+                return false;
+            }
+            employee.Password = request.NewPassword;
+            _dbContext.Employees.Update(employee);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }
