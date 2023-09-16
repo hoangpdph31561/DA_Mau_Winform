@@ -145,6 +145,7 @@
             Name = "FormDangNhap";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormDangNhap";
+            Load += FormDangNhap_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -9,7 +9,7 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
 {
     public interface IManageEmployeeService
     {
-        Task<bool> Login(LoginRequest request);
+        Task<LoginResult> Login(LoginRequest request);
         Task <bool> ForgetPassword(ForgetPasswordRequest request);
     }
 }

@@ -27,14 +27,23 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
             _dbContext = new ShopDBContext(dbContextOptions);
         }
 
-        public  async Task<bool> Login(LoginRequest request)
+        public  async Task<LoginResult> Login(LoginRequest request)
         {
             var employee =  await _dbContext.Employees.Where(x => x.Email == request.Email && x.Password == request.Password).FirstOrDefaultAsync();
             if (employee == null)
             {
-                return false;
+                return new LoginResult()
+                {
+                    IsSuccess = false,
+                };
             }
-            return true;
+            return new LoginResult()
+            {
+                IsSuccess = true,
+                Email = employee.Email,
+                Password = employee.Password,
+                Role = employee.Role,
+            };
         }
 
         public async Task<bool> ForgetPassword(ForgetPasswordRequest request)
