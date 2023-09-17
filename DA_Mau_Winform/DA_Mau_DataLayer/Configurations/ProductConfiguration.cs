@@ -20,7 +20,7 @@ namespace DA_Mau_DataLayer.Configurations
             builder.Property(x => x.Quantity).IsRequired(true);
             builder.Property(x => x.InputPrice).IsRequired(true);
             builder.Property(x => x.SellPrice).IsRequired(true);
-            builder.Property(x => x.PhotoPath).IsRequired(false).HasMaxLength(400).IsUnicode(false);
+            builder.Property(x => x.PhotoPath).IsRequired(false).HasMaxLength(400).IsUnicode(true);
             builder.Property(x => x.Note).IsRequired(true).HasMaxLength(20).IsUnicode(true);
             builder.HasOne(x => x.Employee).WithMany(x => x.Products).HasForeignKey(x => x.EmployeeId);
         }

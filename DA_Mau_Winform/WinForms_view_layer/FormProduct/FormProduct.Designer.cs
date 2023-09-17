@@ -138,7 +138,7 @@
             // 
             pictureBox1.Location = new Point(623, 58);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(256, 107);
+            pictureBox1.Size = new Size(256, 133);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 9;
             pictureBox1.TabStop = false;
@@ -177,6 +177,7 @@
             btnOpenImage.TabIndex = 13;
             btnOpenImage.Text = "Mở hình";
             btnOpenImage.UseVisualStyleBackColor = true;
+            btnOpenImage.Click += btnOpenImage_Click;
             // 
             // dgvProduct
             // 
@@ -188,6 +189,7 @@
             dgvProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProduct.Size = new Size(975, 188);
             dgvProduct.TabIndex = 14;
+            dgvProduct.CellClick += dgvProduct_CellClick;
             // 
             // txtFind
             // 
@@ -204,6 +206,7 @@
             btnFind.TabIndex = 16;
             btnFind.Text = "Tìm kiếm";
             btnFind.UseVisualStyleBackColor = true;
+            btnFind.Click += btnFind_Click;
             // 
             // btnAdd
             // 
@@ -213,6 +216,7 @@
             btnAdd.TabIndex = 17;
             btnAdd.Text = "Thêm";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnDelete
             // 
@@ -222,6 +226,7 @@
             btnDelete.TabIndex = 18;
             btnDelete.Text = "Xóa";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnUpdate
             // 
@@ -231,6 +236,7 @@
             btnUpdate.TabIndex = 19;
             btnUpdate.Text = "Sửa";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnSave
             // 
@@ -240,6 +246,7 @@
             btnSave.TabIndex = 20;
             btnSave.Text = "Lưu";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnPass
             // 
@@ -249,6 +256,7 @@
             btnPass.TabIndex = 21;
             btnPass.Text = "Bỏ qua";
             btnPass.UseVisualStyleBackColor = true;
+            btnPass.Click += btnPass_Click;
             // 
             // btnList
             // 
@@ -258,6 +266,7 @@
             btnList.TabIndex = 22;
             btnList.Text = "Danh sách";
             btnList.UseVisualStyleBackColor = true;
+            btnList.Click += btnList_Click;
             // 
             // btnClose
             // 
@@ -267,6 +276,7 @@
             btnClose.TabIndex = 23;
             btnClose.Text = "Đóng";
             btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // label8
             // 

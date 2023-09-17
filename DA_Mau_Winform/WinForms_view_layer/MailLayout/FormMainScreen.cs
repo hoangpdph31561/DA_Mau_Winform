@@ -17,6 +17,7 @@ namespace WinForms_view_layer.MailLayout
         private FormCustomer.FormCustomer frmCustomer;
         private FormDangNhap dn;
         private FormEmployee frmEmployee;
+        private FormProduct frmProduct;
         private FormChangePassword.FormChangePassword changePassword;
         public static int _session = 0;
         public static int _profile = 0;
@@ -175,6 +176,21 @@ namespace WinForms_view_layer.MailLayout
             else
             {
                 ActiveChildForm("FormCustomer");
+            }
+        }
+
+        private void sảnPhẩmToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmProduct = new FormProduct();
+            if (!CheckExistForm("FormProduct"))
+            {
+                frmProduct.MdiParent = this;
+                frmProduct.Show();
+                frmProduct.FormClosed += new FormClosedEventHandler(FormChangePassword_Close);
+            }
+            else
+            {
+                ActiveChildForm("FormProduct");
             }
         }
     }

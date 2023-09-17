@@ -108,20 +108,21 @@
             // sảnPhẩmToolStripMenuItem
             // 
             sảnPhẩmToolStripMenuItem.Name = "sảnPhẩmToolStripMenuItem";
-            sảnPhẩmToolStripMenuItem.Size = new Size(224, 26);
+            sảnPhẩmToolStripMenuItem.Size = new Size(169, 26);
             sảnPhẩmToolStripMenuItem.Text = "Sản phẩm";
+            sảnPhẩmToolStripMenuItem.Click += sảnPhẩmToolStripMenuItem_Click;
             // 
             // nhânViênToolStripMenuItem
             // 
             nhânViênToolStripMenuItem.Name = "nhânViênToolStripMenuItem";
-            nhânViênToolStripMenuItem.Size = new Size(224, 26);
+            nhânViênToolStripMenuItem.Size = new Size(169, 26);
             nhânViênToolStripMenuItem.Text = "Nhân viên";
             nhânViênToolStripMenuItem.Click += nhânViênToolStripMenuItem_Click;
             // 
             // kháchHàngToolStripMenuItem
             // 
             kháchHàngToolStripMenuItem.Name = "kháchHàngToolStripMenuItem";
-            kháchHàngToolStripMenuItem.Size = new Size(224, 26);
+            kháchHàngToolStripMenuItem.Size = new Size(169, 26);
             kháchHàngToolStripMenuItem.Text = "Khách hàng";
             kháchHàngToolStripMenuItem.Click += kháchHàngToolStripMenuItem_Click;
             // 
@@ -177,7 +178,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1258, 768);
+            ClientSize = new Size(1258, 946);
             Controls.Add(lblTenNguoiDung);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
