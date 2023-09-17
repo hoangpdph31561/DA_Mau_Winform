@@ -118,5 +118,18 @@ namespace DA_mau_BussinessLayer.Catalog.Product
                 return false;
             }
         }
+
+        public async Task<List<CheckProductInventory>> CheckProductInventory()
+        {
+            var data = await (from c in _dbContext.Products
+                       group c by c.Name into g
+                       select new CheckProductInventory
+                       {
+                           ProductName = g.Key,
+                           Quantity = g.Sum(x => x.Quantity)    
+                       }).ToListAsync();
+            return data;          
+                       
+        }
     }
 }

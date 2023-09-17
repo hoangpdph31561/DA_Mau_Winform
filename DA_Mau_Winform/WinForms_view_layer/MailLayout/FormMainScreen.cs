@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinForms_view_layer.FormCustomer;
+using WinForms_view_layer.FormThongKe;
 
 namespace WinForms_view_layer.MailLayout
 {
@@ -18,6 +19,7 @@ namespace WinForms_view_layer.MailLayout
         private FormDangNhap dn;
         private FormEmployee frmEmployee;
         private FormProduct frmProduct;
+        private FormThongKe.FormThongKe frmThongKe;
         private FormChangePassword.FormChangePassword changePassword;
         public static int _session = 0;
         public static int _profile = 0;
@@ -191,6 +193,21 @@ namespace WinForms_view_layer.MailLayout
             else
             {
                 ActiveChildForm("FormProduct");
+            }
+        }
+
+        private void sảnPhẩmTồnKhoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmThongKe = new FormThongKe.FormThongKe();
+            if (!CheckExistForm("FormThongKe"))
+            {
+                frmThongKe.MdiParent = this;
+                frmThongKe.Show();
+                frmThongKe.FormClosed += new FormClosedEventHandler(FormChangePassword_Close);
+            }
+            else
+            {
+                ActiveChildForm("FormThongKe");
             }
         }
     }

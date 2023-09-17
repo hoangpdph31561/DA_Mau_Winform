@@ -17,5 +17,6 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
         Task<bool> CreateEmployee(CreateNewEmployeeRequest request);
         Task<bool> Updateemployee(UpdateRequest request,string email);
         Task<bool> DeleteEmployee(string email);
+        Task<IQueryable<CheckEmployeeProductInput>> GetProductInput();
     }
 }

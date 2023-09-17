@@ -39,7 +39,6 @@
             nhânViênToolStripMenuItem = new ToolStripMenuItem();
             kháchHàngToolStripMenuItem = new ToolStripMenuItem();
             thốngKêToolStripMenuItem = new ToolStripMenuItem();
-            sảnPhẩmNhậpKhoToolStripMenuItem = new ToolStripMenuItem();
             sảnPhẩmTồnKhoToolStripMenuItem = new ToolStripMenuItem();
             hướngDẫnToolStripMenuItem = new ToolStripMenuItem();
             hướngDẫnSửDụngToolStripMenuItem = new ToolStripMenuItem();
@@ -128,22 +127,17 @@
             // 
             // thốngKêToolStripMenuItem
             // 
-            thốngKêToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sảnPhẩmNhậpKhoToolStripMenuItem, sảnPhẩmTồnKhoToolStripMenuItem });
+            thốngKêToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sảnPhẩmTồnKhoToolStripMenuItem });
             thốngKêToolStripMenuItem.Name = "thốngKêToolStripMenuItem";
             thốngKêToolStripMenuItem.Size = new Size(84, 24);
             thốngKêToolStripMenuItem.Text = "Thống kê";
             // 
-            // sảnPhẩmNhậpKhoToolStripMenuItem
-            // 
-            sảnPhẩmNhậpKhoToolStripMenuItem.Name = "sảnPhẩmNhậpKhoToolStripMenuItem";
-            sảnPhẩmNhậpKhoToolStripMenuItem.Size = new Size(223, 26);
-            sảnPhẩmNhậpKhoToolStripMenuItem.Text = "Sản phẩm nhập kho";
-            // 
             // sảnPhẩmTồnKhoToolStripMenuItem
             // 
             sảnPhẩmTồnKhoToolStripMenuItem.Name = "sảnPhẩmTồnKhoToolStripMenuItem";
-            sảnPhẩmTồnKhoToolStripMenuItem.Size = new Size(223, 26);
-            sảnPhẩmTồnKhoToolStripMenuItem.Text = "Sản phẩm tồn kho";
+            sảnPhẩmTồnKhoToolStripMenuItem.Size = new Size(224, 26);
+            sảnPhẩmTồnKhoToolStripMenuItem.Text = "Thống kê sản phẩm";
+            sảnPhẩmTồnKhoToolStripMenuItem.Click += sảnPhẩmTồnKhoToolStripMenuItem_Click;
             // 
             // hướngDẫnToolStripMenuItem
             // 
@@ -205,7 +199,6 @@
         private ToolStripMenuItem nhânViênToolStripMenuItem;
         private ToolStripMenuItem kháchHàngToolStripMenuItem;
         private ToolStripMenuItem thốngKêToolStripMenuItem;
-        private ToolStripMenuItem sảnPhẩmNhậpKhoToolStripMenuItem;
         private ToolStripMenuItem sảnPhẩmTồnKhoToolStripMenuItem;
         private ToolStripMenuItem hướngDẫnSửDụngToolStripMenuItem;
         private ToolStripMenuItem giớiThiệuPhầnMềmToolStripMenuItem;

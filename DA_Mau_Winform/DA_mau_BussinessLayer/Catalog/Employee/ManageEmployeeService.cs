@@ -79,7 +79,7 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
 
         public async Task<List<EmployeeViewModel>> GetAll(string? name)
         {
-            
+
             if (name == null)
             {
                 var result = await _dbContext.Employees.Select(x => new EmployeeViewModel
@@ -93,8 +93,8 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
                 }).ToListAsync();
                 return result;
             }
-           else
-           {
+            else
+            {
                 var result = await _dbContext.Employees.Where(x => x.Name.ToLower().Contains(name.ToLower().Trim())).Select(x => new EmployeeViewModel
                 {
                     Id = x.Id,
@@ -106,18 +106,18 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
                 }).ToListAsync();
                 return result;
             }
-           
+
         }
 
         public async Task<bool> CreateEmployee(CreateNewEmployeeRequest request)
         {
             try
             {
-                if(_dbContext.Employees.Any(x => x.Email == request.Email))
+                if (_dbContext.Employees.Any(x => x.Email == request.Email))
                 {
                     return false;
                 }
-                
+
                 DA_Mau_DataLayer.Entities.Employee newEmployee = new DA_Mau_DataLayer.Entities.Employee()
                 {
                     Name = request.Name,
@@ -130,22 +130,22 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
                 _dbContext.Employees.Add(newEmployee);
                 await _dbContext.SaveChangesAsync();
                 return true;
-                
+
 
             }
-            catch 
+            catch
             {
 
                 return false;
             }
         }
 
-        public async Task<bool> Updateemployee(UpdateRequest request,string email)
+        public async Task<bool> Updateemployee(UpdateRequest request, string email)
         {
             try
             {
                 var employee = await _dbContext.Employees.FirstOrDefaultAsync(x => x.Email == email);
-                if(employee == null)
+                if (employee == null)
                 {
                     return false;
                 }
@@ -183,6 +183,44 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
                 return false;
             }
 
+        }
+
+        public async Task<IQueryable<CheckEmployeeProductInput>> GetProductInput()
+        {
+            //var data = from d in _dbContext.Employees
+            //           join f in _dbContext.Products
+            //           on d.Id equals f.EmployeeId
+            //           select new
+            //           {
+            //               d.Id,
+            //               d.Name,
+            //               ProductId = f.Id
+            //           } into x
+            //           group x by new
+            //           {
+            //               x.Id,
+            //               x.Name,
+            //           } into g
+            //           select new CheckEmployeeProductInput
+            //           {
+            //               EmployeeId = g.Key.Id,
+            //               EmployeeName = g.Key.Name,
+            //               ProductCount = g.Select(x => x.ProductId).Count(),
+            //           };
+
+            var data = from employee in _dbContext.Employees
+            join product in _dbContext.Products
+            on employee.Id equals product.EmployeeId into productGroup
+            from product in productGroup.DefaultIfEmpty() // Perform a left join
+            group new { employee.Id, employee.Name, ProductId = product != null ? product.Id : (int?)null } by new { employee.Id, employee.Name } into grouped
+            select new CheckEmployeeProductInput
+            {
+                EmployeeId = grouped.Key.Id,
+                EmployeeName = grouped.Key.Name,
+                ProductCount = grouped.Count(x => x.ProductId.HasValue)
+            };
+
+            return data;
         }
     }
 }

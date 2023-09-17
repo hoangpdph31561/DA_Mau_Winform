@@ -13,5 +13,6 @@ namespace DA_mau_BussinessLayer.Catalog.Product
         Task<bool> CreateNewProduct (ProductCreateRequest request);
         Task<bool> UpdateProduct(int productId, ProductUpdateRequest request);
         Task<bool> DeleteProduct(int productId);
+        Task<List<CheckProductInventory>> CheckProductInventory();
     }
 }
