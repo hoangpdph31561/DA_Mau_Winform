@@ -41,7 +41,7 @@
             radInActive = new RadioButton();
             radActive = new RadioButton();
             label6 = new Label();
-            txtAddress = new Label();
+            labelAddress = new Label();
             txtEmployeeAddress = new RichTextBox();
             dtgNhanVien = new DataGridView();
             txtFind = new TextBox();
@@ -186,14 +186,14 @@
             label6.TabIndex = 0;
             label6.Text = "Tính trạng";
             // 
-            // txtAddress
+            // labelAddress
             // 
-            txtAddress.AutoSize = true;
-            txtAddress.Location = new Point(604, 76);
-            txtAddress.Name = "txtAddress";
-            txtAddress.Size = new Size(55, 20);
-            txtAddress.TabIndex = 7;
-            txtAddress.Text = "Địa chỉ";
+            labelAddress.AutoSize = true;
+            labelAddress.Location = new Point(604, 76);
+            labelAddress.Name = "labelAddress";
+            labelAddress.Size = new Size(55, 20);
+            labelAddress.TabIndex = 7;
+            labelAddress.Text = "Địa chỉ";
             // 
             // txtEmployeeAddress
             // 
@@ -213,6 +213,7 @@
             dtgNhanVien.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgNhanVien.Size = new Size(921, 188);
             dtgNhanVien.TabIndex = 9;
+            dtgNhanVien.CellClick += dtgNhanVien_CellClick;
             // 
             // txtFind
             // 
@@ -229,6 +230,7 @@
             btnFind.TabIndex = 11;
             btnFind.Text = "Tìm kiếm";
             btnFind.UseVisualStyleBackColor = true;
+            btnFind.Click += btnFind_Click;
             // 
             // btnAdd
             // 
@@ -238,6 +240,7 @@
             btnAdd.TabIndex = 12;
             btnAdd.Text = "Thêm";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnDelete
             // 
@@ -247,6 +250,7 @@
             btnDelete.TabIndex = 13;
             btnDelete.Text = "Xóa";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnUpdate
             // 
@@ -256,6 +260,7 @@
             btnUpdate.TabIndex = 14;
             btnUpdate.Text = "Sửa";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnSave
             // 
@@ -265,6 +270,7 @@
             btnSave.TabIndex = 15;
             btnSave.Text = "Lưu";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnPass
             // 
@@ -274,6 +280,7 @@
             btnPass.TabIndex = 16;
             btnPass.Text = "Bỏ qua";
             btnPass.UseVisualStyleBackColor = true;
+            btnPass.Click += btnPass_Click;
             // 
             // btnList
             // 
@@ -283,6 +290,7 @@
             btnList.TabIndex = 17;
             btnList.Text = "Danh sách";
             btnList.UseVisualStyleBackColor = true;
+            btnList.Click += btnList_Click;
             // 
             // btnClose
             // 
@@ -292,6 +300,7 @@
             btnClose.TabIndex = 18;
             btnClose.Text = "Đóng";
             btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // FormEmployee
             // 
@@ -309,7 +318,7 @@
             Controls.Add(txtFind);
             Controls.Add(dtgNhanVien);
             Controls.Add(txtEmployeeAddress);
-            Controls.Add(txtAddress);
+            Controls.Add(labelAddress);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(txtEmployeeName);
@@ -320,6 +329,7 @@
             Name = "FormEmployee";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormEmployee";
+            Load += FormEmployee_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
@@ -338,7 +348,7 @@
         private TextBox txtEmployeeName;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
-        private Label txtAddress;
+        private Label labelAddress;
         private RadioButton radManager;
         private RadioButton radEmployee;
         private Label label5;

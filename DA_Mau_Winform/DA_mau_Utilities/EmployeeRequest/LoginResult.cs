@@ -9,6 +9,7 @@ namespace DA_mau_Utilities.EmployeeRequest
 {
     public class LoginResult
     {
+        public int Id { get; set; }
         public bool IsSuccess { get; set; }
         public Role? Role { get; set; }
         public string? Email { get; set; }

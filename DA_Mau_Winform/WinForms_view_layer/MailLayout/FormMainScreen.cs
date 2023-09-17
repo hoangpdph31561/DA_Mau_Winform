@@ -14,11 +14,13 @@ namespace WinForms_view_layer.MailLayout
     public partial class FormMainScreen : Form
     {
         private FormDangNhap dn;
+        private FormEmployee frmEmployee;
         private FormChangePassword.FormChangePassword changePassword;
         public static int _session = 0;
         public static int _profile = 0;
         public static string _mail;
         public static Role _role;
+        public static int _employeeId;
         public FormMainScreen()
         {
             InitializeComponent();
@@ -141,9 +143,22 @@ namespace WinForms_view_layer.MailLayout
                 _mail = string.Empty;
                 FormChangePassword_Close(sender, e);
             }
-            
+
         }
 
-        
+        private void nhânViênToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmEmployee = new FormEmployee();
+            if (!CheckExistForm("FormEmployee"))
+            {
+                frmEmployee.MdiParent = this;
+                frmEmployee.Show();
+                frmEmployee.FormClosed += new FormClosedEventHandler(FormChangePassword_Close);
+            }
+            else
+            {
+                ActiveChildForm("FormEmployee");
+            }
+        }
     }
 }

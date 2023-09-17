@@ -36,6 +36,7 @@ namespace WinForms_view_layer
             {
                 FormMainScreen._mail = result.Email;
                 FormMainScreen._role = (Role)result.Role;
+                FormMainScreen._employeeId = result.Id;
                 MessageBox.Show("Đăng nhập thành công");
                 FormMainScreen._session = 1;
                 this.Close();

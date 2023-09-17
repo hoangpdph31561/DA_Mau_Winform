@@ -1,6 +1,8 @@
 ﻿using DA_Mau_DataLayer.DBContext;
+using DA_Mau_DataLayer.Entities;
 using DA_mau_Utilities.Common_Use;
 using DA_mau_Utilities.EmployeeRequest;
+using DA_mau_Utilities.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -27,9 +29,9 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
             _dbContext = new ShopDBContext(dbContextOptions);
         }
 
-        public  async Task<LoginResult> Login(LoginRequest request)
+        public async Task<LoginResult> Login(LoginRequest request)
         {
-            var employee =  await _dbContext.Employees.Where(x => x.Email == request.Email && x.Password == request.Password).FirstOrDefaultAsync();
+            var employee = await _dbContext.Employees.Where(x => x.Email == request.Email && x.Password == request.Password).FirstOrDefaultAsync();
             if (employee == null)
             {
                 return new LoginResult()
@@ -40,6 +42,7 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
             return new LoginResult()
             {
                 IsSuccess = true,
+                Id = employee.Id,
                 Email = employee.Email,
                 Password = employee.Password,
                 Role = employee.Role,
@@ -53,7 +56,7 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
             {
                 return false;
             }
-            var newPassword = CommonUnitilyUse.RandomPassword(6,true);
+            var newPassword = CommonUnitilyUse.RandomPassword(6, true);
             CommonUnitilyUse.SendMail(request.Email, newPassword);
             employeeForgetPass.Password = newPassword;
             _dbContext.Employees.Update(employeeForgetPass);
@@ -64,7 +67,7 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
         public async Task<bool> ChangePassword(ChangePasswordRequest request)
         {
             var employee = await _dbContext.Employees.FirstOrDefaultAsync(x => x.Email == request.Email);
-            if(employee == null || employee.Password != request.OldPassword || request.NewPassword != request.ConfirmPassword)
+            if (employee == null || employee.Password != request.OldPassword || request.NewPassword != request.ConfirmPassword)
             {
                 return false;
             }
@@ -72,6 +75,114 @@ namespace DA_mau_BussinessLayer.Catalog.Employee
             _dbContext.Employees.Update(employee);
             await _dbContext.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<EmployeeViewModel>> GetAll(string? name)
+        {
+            
+            if (name == null)
+            {
+                var result = await _dbContext.Employees.Select(x => new EmployeeViewModel
+                {
+                    Id = x.Id,
+                    Email = x.Email,
+                    Name = x.Name,
+                    Address = x.Address,
+                    Role = x.Role,
+                    Status = x.Status
+                }).ToListAsync();
+                return result;
+            }
+           else
+           {
+                var result = await _dbContext.Employees.Where(x => x.Name.ToLower().Contains(name.ToLower().Trim())).Select(x => new EmployeeViewModel
+                {
+                    Id = x.Id,
+                    Email = x.Email,
+                    Name = x.Name,
+                    Address = x.Address,
+                    Role = x.Role,
+                    Status = x.Status
+                }).ToListAsync();
+                return result;
+            }
+           
+        }
+
+        public async Task<bool> CreateEmployee(CreateNewEmployeeRequest request)
+        {
+            try
+            {
+                if(_dbContext.Employees.Any(x => x.Email == request.Email))
+                {
+                    return false;
+                }
+                
+                DA_Mau_DataLayer.Entities.Employee newEmployee = new DA_Mau_DataLayer.Entities.Employee()
+                {
+                    Name = request.Name,
+                    Address = request.Address,
+                    Role = request.Role,
+                    Status = request.Status,
+                    Email = request.Email,
+                    Password = request.Password,
+                };
+                _dbContext.Employees.Add(newEmployee);
+                await _dbContext.SaveChangesAsync();
+                return true;
+                
+
+            }
+            catch 
+            {
+
+                return false;
+            }
+        }
+
+        public async Task<bool> Updateemployee(UpdateRequest request,string email)
+        {
+            try
+            {
+                var employee = await _dbContext.Employees.FirstOrDefaultAsync(x => x.Email == email);
+                if(employee == null)
+                {
+                    return false;
+                }
+                employee.Name = request.Name;
+                employee.Address = request.Address;
+                employee.Role = request.Role;
+                employee.Status = request.Status;
+                _dbContext.Employees.Update(employee);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteEmployee(string email)
+        {
+            try
+            {
+                var employee = await _dbContext.Employees.FirstOrDefaultAsync(x => x.Email == email);
+                if (employee == null)
+                {
+                    return false;
+                }
+                _dbContext.Employees.Remove(employee);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+
         }
     }
 }
