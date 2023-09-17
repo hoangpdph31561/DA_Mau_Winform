@@ -123,6 +123,7 @@
             kháchHàngToolStripMenuItem.Name = "kháchHàngToolStripMenuItem";
             kháchHàngToolStripMenuItem.Size = new Size(224, 26);
             kháchHàngToolStripMenuItem.Text = "Khách hàng";
+            kháchHàngToolStripMenuItem.Click += kháchHàngToolStripMenuItem_Click;
             // 
             // thốngKêToolStripMenuItem
             // 

@@ -8,11 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinForms_view_layer.FormCustomer;
 
 namespace WinForms_view_layer.MailLayout
 {
     public partial class FormMainScreen : Form
     {
+        private FormCustomer.FormCustomer frmCustomer;
         private FormDangNhap dn;
         private FormEmployee frmEmployee;
         private FormChangePassword.FormChangePassword changePassword;
@@ -158,6 +160,21 @@ namespace WinForms_view_layer.MailLayout
             else
             {
                 ActiveChildForm("FormEmployee");
+            }
+        }
+
+        private void kháchHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCustomer = new FormCustomer.FormCustomer();
+            if (!CheckExistForm("FormCustomer"))
+            {
+                frmCustomer.MdiParent = this;
+                frmCustomer.Show();
+                frmCustomer.FormClosed += new FormClosedEventHandler(FormChangePassword_Close);
+            }
+            else
+            {
+                ActiveChildForm("FormCustomer");
             }
         }
     }
