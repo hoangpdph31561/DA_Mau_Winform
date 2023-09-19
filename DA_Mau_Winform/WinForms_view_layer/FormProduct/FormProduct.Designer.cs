@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -54,8 +55,10 @@
             btnClose = new Button();
             label8 = new Label();
             txtProductSellPrice = new TextBox();
+            errorProvider1 = new ErrorProvider(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvProduct).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -294,6 +297,10 @@
             txtProductSellPrice.Size = new Size(289, 27);
             txtProductSellPrice.TabIndex = 25;
             // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
             // FormProduct
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -331,6 +338,7 @@
             Load += FormProduct_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvProduct).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -363,5 +371,6 @@
         private Button btnClose;
         private Label label8;
         private TextBox txtProductSellPrice;
+        private ErrorProvider errorProvider1;
     }
 }

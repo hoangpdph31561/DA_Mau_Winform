@@ -146,6 +146,10 @@ namespace WinForms_view_layer.MailLayout
             {
                 _session = 0;
                 _mail = string.Empty;
+                foreach (Form childForm in this.MdiChildren)
+                {
+                    childForm.Close();
+                }
                 FormChangePassword_Close(sender, e);
             }
 

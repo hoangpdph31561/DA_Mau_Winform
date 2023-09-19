@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DA_mau_Utilities.Common_Use
@@ -49,6 +50,66 @@ namespace DA_mau_Utilities.Common_Use
                 throw new Exception(e.Message);
                 
             }
+        }
+        public static bool RegexHumanName(string name)
+        {
+            if(!Regex.IsMatch(name, @"^[\w\s]{5,50}$"))
+            {
+                return false;
+            }
+            return true;
+        }
+        public static string NameConvention(string name)
+        {
+            string[] splitName = name.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < splitName.Length; i++)
+            {
+                string word = splitName[i].Trim();
+                word = word.ToLower();
+                char[] arrWord = word.ToCharArray();
+                arrWord[0] = char.ToUpper(word[0]);
+                string newWord = new string(arrWord);
+                splitName[i] = newWord;
+            }
+            name = string.Join(" ", splitName);
+            name = name.Trim();
+            return name;
+        }
+        public static bool RegexNumberDecimal(string number)
+        {
+            if (!Regex.IsMatch(number, @"^[\d]+\,?[\d]*$"))
+            {
+                return false;
+            }
+            return true;
+        }
+        public static bool RegexNumberInterger(string number)
+        {
+            if (!Regex.IsMatch(number, @"^[\d]+$"))
+            {
+                return false;
+            }
+            return true;
+        }
+        public static bool RegexEmail(string email)
+        {
+            if(!Regex.IsMatch(email, @"^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z\d]+$"))
+            {
+                return false;
+            }
+            else if(email.Length > 50)
+            {
+                return false;
+            }
+            return true;
+        }
+        public static bool RegexPhoneNumber(string number)
+        {
+            if(!Regex.IsMatch(number, @"^(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})$"))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

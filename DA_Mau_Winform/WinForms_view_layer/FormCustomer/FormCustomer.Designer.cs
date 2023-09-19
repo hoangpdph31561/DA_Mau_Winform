@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -48,7 +49,9 @@
             btnPass = new Button();
             btnList = new Button();
             btnOut = new Button();
+            errorProvider1 = new ErrorProvider(components);
             ((System.ComponentModel.ISupportInitialize)dtgCustomer).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -242,6 +245,10 @@
             btnOut.UseVisualStyleBackColor = true;
             btnOut.Click += btnOut_Click;
             // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
             // FormCustomer
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -272,6 +279,7 @@
             Text = "FormCustomer";
             Load += FormCustomer_Load;
             ((System.ComponentModel.ISupportInitialize)dtgCustomer).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -298,5 +306,6 @@
         private Button btnPass;
         private Button btnList;
         private Button btnOut;
+        private ErrorProvider errorProvider1;
     }
 }

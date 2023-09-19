@@ -1,4 +1,5 @@
 ﻿using DA_mau_BussinessLayer.Catalog.Product;
+using DA_mau_Utilities.Common_Use;
 using DA_mau_Utilities.ProductRequest;
 using System;
 using System.Collections.Generic;
@@ -134,27 +135,31 @@ namespace WinForms_view_layer
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            ProductCreateRequest request = new()
+            if (CheckRegex())
             {
-                EmployeeId = FormMainScreen._employeeId,
-                Name = txtProductName.Text,
-                Quantity = Convert.ToInt32(txtProductQuantity.Text),
-                InputPrice = Convert.ToDecimal(txtProductInputPrice.Text),
-                SellPrice = Convert.ToDecimal(txtProductSellPrice.Text),
-                ImagePath = fileSavePath,
-                Note = txtProductNote.Text,
-            };
-            var result = await manageProduct.CreateNewProduct(request);
-            if (result)
-            {
-                MessageBox.Show("Thêm ảnh thành công");
-                File.Copy(fileAddress, fileSavePath, true);
+                ProductCreateRequest request = new()
+                {
+                    EmployeeId = FormMainScreen._employeeId,
+                    Name = txtProductName.Text,
+                    Quantity = Convert.ToInt32(txtProductQuantity.Text),
+                    InputPrice = Convert.ToDecimal(txtProductInputPrice.Text),
+                    SellPrice = Convert.ToDecimal(txtProductSellPrice.Text),
+                    ImagePath = fileSavePath,
+                    Note = txtProductNote.Text,
+                };
+                var result = await manageProduct.CreateNewProduct(request);
+                if (result)
+                {
+                    MessageBox.Show("Thêm ảnh thành công");
+                    File.Copy(fileAddress, fileSavePath, true);
 
+                }
+                else
+                {
+                    MessageBox.Show("Thêm thất bại");
+                }
             }
-            else
-            {
-                MessageBox.Show("Thêm thất bại");
-            }
+            
             LoadGrid(null);
             EnableBtnTxt();
         }
@@ -183,29 +188,33 @@ namespace WinForms_view_layer
             DialogResult reg = MessageBox.Show($"Bạn có muốn cập nhật lại sản phẩm {txtProductName.Text} chứ", "Xác nhận cập nhật", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (reg == DialogResult.Yes)
             {
-                ProductUpdateRequest request = new()
+                if (CheckRegex())
                 {
-                    Name = txtProductName.Text,
-                    Quantity = Convert.ToInt32(txtProductQuantity.Text),
-                    InputPrice = Convert.ToDecimal(txtProductInputPrice.Text),
-                    SellPrice = Convert.ToDecimal(txtProductSellPrice.Text),
-                    Note = txtProductNote.Text,
-                    PhotoPath = fileSavePath
-                };
-                if (currentImage != fileSavePath)
-                {
-                    File.Copy(fileAddress, fileSavePath, true);
-                }
-                var result = await manageProduct.UpdateProduct(Convert.ToInt32(txtProductId.Text), request);
-                if (result)
-                {
-                    MessageBox.Show("Cập nhập lại sản phẩm thành công");
+                    ProductUpdateRequest request = new()
+                    {
+                        Name = txtProductName.Text,
+                        Quantity = Convert.ToInt32(txtProductQuantity.Text),
+                        InputPrice = Convert.ToDecimal(txtProductInputPrice.Text),
+                        SellPrice = Convert.ToDecimal(txtProductSellPrice.Text),
+                        Note = txtProductNote.Text,
+                        PhotoPath = fileSavePath
+                    };
+                    if (currentImage != fileSavePath)
+                    {
+                        File.Copy(fileAddress, fileSavePath, true);
+                    }
+                    var result = await manageProduct.UpdateProduct(Convert.ToInt32(txtProductId.Text), request);
+                    if (result)
+                    {
+                        MessageBox.Show("Cập nhập lại sản phẩm thành công");
 
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật thất bại");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Cập nhật thất bại");
-                }
+               
                 LoadGrid(null);
                 EnableBtnTxt();
             }
@@ -258,7 +267,62 @@ namespace WinForms_view_layer
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
-            
+
+        }
+        private bool CheckRegex()
+        {
+            errorProvider1.SetError(txtProductName, "");
+            errorProvider1.SetError(txtProductQuantity, "");
+            errorProvider1.SetError(txtProductSellPrice, "");
+            errorProvider1.SetError(txtProductInputPrice, "");
+            errorProvider1.SetError(pictureBox1, "");
+            errorProvider1.SetError(txtProductNote, "");
+            if(string.IsNullOrWhiteSpace(txtProductName.Text) )
+            {
+                errorProvider1.SetError(txtProductName, "Chưa nhập tên hàng");
+                return false;
+            }
+            if(string.IsNullOrWhiteSpace(txtProductQuantity.Text) )
+            {
+                errorProvider1.SetError(txtProductQuantity, "Chưa nhập số lượng sản phẩm");
+                return false;
+            }
+            else if (!CommonUnitilyUse.RegexNumberInterger(txtProductQuantity.Text))
+            {
+                errorProvider1.SetError(txtProductQuantity, "Nhập số nguyên");
+                return false;
+            }
+            if(string.IsNullOrWhiteSpace(txtProductInputPrice.Text) )
+            {
+                errorProvider1.SetError(txtProductInputPrice, "Chưa nhập giá nhập");
+                return false;
+            }
+            else if (!CommonUnitilyUse.RegexNumberDecimal(txtProductInputPrice.Text))
+            {
+                errorProvider1.SetError(txtProductInputPrice, "Nhập số thực");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(txtProductSellPrice.Text))
+            {
+                errorProvider1.SetError(txtProductSellPrice, "Chưa nhập giá bán");
+                return false;
+            }
+            else if (!CommonUnitilyUse.RegexNumberDecimal(txtProductSellPrice.Text))
+            {
+                errorProvider1.SetError(txtProductSellPrice, "Nhập số thực");
+                return false;
+            }
+            if(pictureBox1.Image == null)
+            {
+                errorProvider1.SetError(pictureBox1, "Chưa có ảnh");
+                return false;
+            }
+            if(string.IsNullOrWhiteSpace(txtProductNote.Text))
+            {
+                errorProvider1.SetError(txtProductNote, "Chưa nhập ghi chú");
+                return false;
+            }
+            return true;
         }
     }
 }

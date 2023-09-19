@@ -1,4 +1,5 @@
 ﻿using DA_mau_BussinessLayer.Catalog.Customer;
+using DA_mau_Utilities.Common_Use;
 using DA_mau_Utilities.CustomerRequest;
 using DA_mau_Utilities.Enums;
 using System;
@@ -97,33 +98,38 @@ namespace WinForms_view_layer.FormCustomer
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            CreateNewCustomerRequest request = new()
+            if(CheckRegex())
             {
-                PhoneNumber = txtPhoneNumber.Text,
-                Address = txtAddress.Text,
-                Name = txtNameCustomer.Text,
-            };
-            request.EmployeeId = FormMainScreen._employeeId;
-            if (radFemale.Checked)
-            {
-                request.Gender = Gender.Female;
+                TrimTxt();
+                CreateNewCustomerRequest request = new()
+                {
+                    PhoneNumber = txtPhoneNumber.Text,
+                    Address = txtAddress.Text,
+                    Name = CommonUnitilyUse.NameConvention(txtNameCustomer.Text),
+                };
+                request.EmployeeId = FormMainScreen._employeeId;
+                if (radFemale.Checked)
+                {
+                    request.Gender = Gender.Female;
+                }
+                else
+                {
+                    request.Gender = Gender.Male;
+                }
+                var result = await managerCustomer.CreateNewCustomer(request);
+                if (result)
+                {
+                    MessageBox.Show("Tạo mới thành công");
+                    LoadGrid(null);
+                    EnableTxt();
+                }
+                else
+                {
+                    MessageBox.Show("Tạo mới thất bại", "Tạo thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    EnableTxt();
+                }
             }
-            else
-            {
-                request.Gender = Gender.Male;
-            }
-            var result = await managerCustomer.CreateNewCustomer(request);
-            if (result)
-            {
-                MessageBox.Show("Tạo mới thành công");
-                LoadGrid(null);
-                EnableTxt();
-            }
-            else
-            {
-                MessageBox.Show("Tạo mới thất bại", "Tạo thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                EnableTxt();
-            }
+            
         }
 
         private void dtgCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -156,31 +162,35 @@ namespace WinForms_view_layer.FormCustomer
             DialogResult reg = MessageBox.Show($"Bạn có chắc chắn muốn cập nhật khách hàng {txtNameCustomer.Text} này", "Cập nhật", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (reg == DialogResult.Yes)
             {
-                CustomerUpdateRequest request = new CustomerUpdateRequest()
+                if (CheckRegex())
                 {
-                    Name = txtNameCustomer.Text,
-                    Address = txtAddress.Text,
-                };
-                if (radFemale.Checked)
-                {
-                    request.Gender = Gender.Female;
+                    CustomerUpdateRequest request = new CustomerUpdateRequest()
+                    {
+                        Name = CommonUnitilyUse.NameConvention(txtNameCustomer.Text),
+                        Address = txtAddress.Text,
+                    };
+                    if (radFemale.Checked)
+                    {
+                        request.Gender = Gender.Female;
+                    }
+                    else
+                    {
+                        request.Gender = Gender.Male;
+                    }
+                    var result = await managerCustomer.UpdateCustomer(txtPhoneNumber.Text, request);
+                    if (result)
+                    {
+                        MessageBox.Show("Cập nhật khách hàng thành công");
+                        LoadGrid(null);
+                        EnableTxt();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật thất bại");
+                        EnableTxt();
+                    }
                 }
-                else
-                {
-                    request.Gender = Gender.Male;
-                }
-                var result = await managerCustomer.UpdateCustomer(txtPhoneNumber.Text, request);
-                if (result)
-                {
-                    MessageBox.Show("Cập nhật khách hàng thành công");
-                    LoadGrid(null);
-                    EnableTxt();
-                }
-                else
-                {
-                    MessageBox.Show("Cập nhật thất bại");
-                    EnableTxt();
-                }
+               
             }
 
         }
@@ -207,12 +217,18 @@ namespace WinForms_view_layer.FormCustomer
 
         private void btnPass_Click(object sender, EventArgs e)
         {
+            errorProvider1.SetError(txtNameCustomer, "");
+            errorProvider1.SetError(txtAddress, "");
+            errorProvider1.SetError(txtPhoneNumber, "");
             ResetValue();
             LoadGrid(null);
         }
 
         private void btnList_Click(object sender, EventArgs e)
         {
+            errorProvider1.SetError(txtNameCustomer, "");
+            errorProvider1.SetError(txtAddress, "");
+            errorProvider1.SetError(txtPhoneNumber, "");
             ResetValue();
             LoadGrid(null);
         }
@@ -224,16 +240,54 @@ namespace WinForms_view_layer.FormCustomer
 
         private void btnFind_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(txtFind.Text))
+            if (string.IsNullOrEmpty(txtFind.Text))
             {
-                
+
                 LoadGrid(null);
             }
             else
             {
                 LoadGrid(txtFind.Text);
-                
+
             }
+        }
+        private void TrimTxt()
+        {
+            txtAddress.Text = txtAddress.Text.Trim();
+            txtNameCustomer.Text = txtNameCustomer.Text.Trim();
+            txtPhoneNumber.Text = txtPhoneNumber.Text.Trim();
+        }
+        private bool CheckRegex()
+        {
+            errorProvider1.SetError(txtNameCustomer, "");
+            errorProvider1.SetError(txtAddress, "");
+            errorProvider1.SetError(txtPhoneNumber, "");
+            if(string.IsNullOrWhiteSpace(txtPhoneNumber.Text))
+            {
+                errorProvider1.SetError(txtPhoneNumber, "Chưa nhập số điện thoại");
+                return false;
+            }
+            else if (!CommonUnitilyUse.RegexPhoneNumber(txtPhoneNumber.Text))
+            {
+                errorProvider1.SetError(txtPhoneNumber, "Sai regex số điện thoại");
+                return false;
+            }
+            if(string.IsNullOrWhiteSpace(txtAddress.Text))
+            {
+                errorProvider1.SetError(txtAddress, "Chưa nhập địa chỉ");
+                return false;
+            }
+            if(string.IsNullOrWhiteSpace(txtNameCustomer.Text))
+            {
+                errorProvider1.SetError(txtNameCustomer, "Chưa nhập tên");
+                return false;
+            }
+            else if (!CommonUnitilyUse.RegexHumanName(txtNameCustomer.Text))
+            {
+                errorProvider1.SetError(txtNameCustomer, "Tên sai regex");
+                return false;
+            }
+            return true;
         }
     }
 }

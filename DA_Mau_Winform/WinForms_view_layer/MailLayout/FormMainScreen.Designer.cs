@@ -135,7 +135,7 @@
             // sảnPhẩmTồnKhoToolStripMenuItem
             // 
             sảnPhẩmTồnKhoToolStripMenuItem.Name = "sảnPhẩmTồnKhoToolStripMenuItem";
-            sảnPhẩmTồnKhoToolStripMenuItem.Size = new Size(224, 26);
+            sảnPhẩmTồnKhoToolStripMenuItem.Size = new Size(221, 26);
             sảnPhẩmTồnKhoToolStripMenuItem.Text = "Thống kê sản phẩm";
             sảnPhẩmTồnKhoToolStripMenuItem.Click += sảnPhẩmTồnKhoToolStripMenuItem_Click;
             // 

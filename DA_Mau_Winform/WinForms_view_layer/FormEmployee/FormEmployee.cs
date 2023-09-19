@@ -110,14 +110,15 @@ namespace WinForms_view_layer
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtEmail.Text) && !string.IsNullOrEmpty(txtEmployeeName.Text) && !string.IsNullOrEmpty(txtEmployeeAddress.Text))
+            if (CheckRegex())
             {
+                TrimAllTxt();
                 string password = CommonUnitilyUse.RandomPassword(6, true);
                 CreateNewEmployeeRequest request = new()
                 {
                     Email = txtEmail.Text,
                     Address = txtEmployeeAddress.Text,
-                    Name = txtEmployeeName.Text,
+                    Name = CommonUnitilyUse.NameConvention(txtEmployeeName.Text),
                     Password = password
                 };
                 if (radEmployee.Checked)
@@ -197,37 +198,42 @@ namespace WinForms_view_layer
             DialogResult reg = MessageBox.Show("Bạn có chắc muốn sửa thông tin nhân viên", "Xác nhận sửa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (!string.IsNullOrEmpty(txtEmail.Text) && !string.IsNullOrEmpty(txtEmployeeName.Text) && !string.IsNullOrEmpty(txtEmployeeAddress.Text) && reg == DialogResult.Yes)
             {
-                UpdateRequest request = new UpdateRequest()
+                if(CheckRegex())
                 {
-                    Name = txtEmployeeName.Text,
-                    Address = txtEmployeeAddress.Text,
-                };
-                if (radActive.Checked)
-                {
-                    request.Status = Status.Active;
+                    TrimAllTxt();
+                    UpdateRequest request = new UpdateRequest()
+                    {
+                        Name = CommonUnitilyUse.NameConvention(txtEmployeeName.Text),
+                        Address = txtEmployeeAddress.Text,
+                    };
+                    if (radActive.Checked)
+                    {
+                        request.Status = Status.Active;
+                    }
+                    else
+                    {
+                        request.Status = Status.Inactive;
+                    }
+                    if (radEmployee.Checked)
+                    {
+                        request.Role = Role.Employee;
+                    }
+                    else
+                    {
+                        request.Role = Role.Manager;
+                    }
+                    var result = await employeeService.Updateemployee(request, txtEmail.Text);
+                    if (result)
+                    {
+                        MessageBox.Show("Update thông tin nhân viên thành công");
+                        LoadGrid(null);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Update thất bại", "Không update được", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
-                {
-                    request.Status = Status.Inactive;
-                }
-                if (radEmployee.Checked)
-                {
-                    request.Role = Role.Employee;
-                }
-                else
-                {
-                    request.Role = Role.Manager;
-                }
-                var result = await employeeService.Updateemployee(request, txtEmail.Text);
-                if (result)
-                {
-                    MessageBox.Show("Update thông tin nhân viên thành công");
-                    LoadGrid(null);
-                }
-                else
-                {
-                    MessageBox.Show("Update thất bại", "Không update được", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                
             }
         }
 
@@ -251,7 +257,7 @@ namespace WinForms_view_layer
 
         private void btnFind_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtFind.Text))
+            if (string.IsNullOrWhiteSpace(txtFind.Text))
             {
                 LoadGrid(null);
             }
@@ -265,17 +271,61 @@ namespace WinForms_view_layer
         {
             ResetValue();
             LoadGrid(null);
+            errorProvider1.SetError(txtEmail, "");
+            errorProvider1.SetError(txtEmployeeAddress, "");
+            errorProvider1.SetError(txtEmployeeName, "");
         }
 
         private void btnList_Click(object sender, EventArgs e)
         {
             ResetValue();
             LoadGrid(null);
+            errorProvider1.SetError(txtEmail, "");
+            errorProvider1.SetError(txtEmployeeAddress, "");
+            errorProvider1.SetError(txtEmployeeName, "");
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private void TrimAllTxt()
+        {
+            txtEmail.Text = txtEmail.Text.Trim();   
+            txtEmployeeAddress.Text = txtEmployeeAddress.Text.Trim();
+            txtEmployeeName.Text = txtEmployeeName.Text.Trim();
+        }
+        private bool CheckRegex()
+        {
+            errorProvider1.SetError(txtEmail, "");
+            errorProvider1.SetError(txtEmployeeAddress, "");
+            errorProvider1.SetError(txtEmployeeName, "");
+            if(string.IsNullOrWhiteSpace(txtEmployeeName.Text))
+            {
+                errorProvider1.SetError(txtEmployeeName, "Chưa nhập tên");
+                return false;
+            }
+            else if (!CommonUnitilyUse.RegexHumanName(txtEmployeeName.Text))
+            {
+                errorProvider1.SetError(txtEmployeeName, "Tên không đúng regex");
+                return false;
+            }
+            if(string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                errorProvider1.SetError(txtEmail, "Chưa nhập email");
+                return false;
+            }
+            else if (!CommonUnitilyUse.RegexEmail(txtEmail.Text))
+            {
+                errorProvider1.SetError(txtEmail, "Mail không đúng regex");
+                return false;
+            }
+            if(string.IsNullOrWhiteSpace (txtEmployeeAddress.Text))
+            {
+                errorProvider1.SetError(txtEmployeeAddress, "Chưa điền địa chỉ");
+                return false;
+            }
+            return true;
         }
     }
 }
